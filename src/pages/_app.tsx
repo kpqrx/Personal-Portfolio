@@ -1,6 +1,19 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
+import { GlobalStyle, SVGDefinitions, lightTheme, darkTheme } from "@/theme";
+import { useState } from "react";
+import { ThemeProvider } from "styled-components";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+function App({ Component, pageProps }: AppProps) {
+  const [isDarkTheme, setDarkTheme] = useState(false);
+  //TODO: Move to app state
+
+  return (
+    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <GlobalStyle />
+      <SVGDefinitions />
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
+
+export default App;
