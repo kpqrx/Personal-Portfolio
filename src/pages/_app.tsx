@@ -1,18 +1,18 @@
 import type { AppProps } from "next/app";
-import { GlobalStyle, SVGDefinitions, lightTheme, darkTheme } from "@/theme";
-import { useState } from "react";
+import { GlobalStyle, SVGDefinitions, lightTheme } from "@/theme";
 import { ThemeProvider } from "styled-components";
+import { Provider as StoreProvider } from "react-redux";
+import { store } from "@/store";
 
 function App({ Component, pageProps }: AppProps) {
-  const [isDarkTheme, setDarkTheme] = useState(false);
-  //TODO: Move to app state
-
   return (
-    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-      <GlobalStyle />
-      <SVGDefinitions />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <StoreProvider store={store}>
+      <ThemeProvider theme={lightTheme}>
+        <GlobalStyle />
+        <SVGDefinitions />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </StoreProvider>
   );
 }
 

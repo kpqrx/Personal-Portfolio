@@ -1,7 +1,7 @@
 // @ts-nocheck
 import dynamic from "next/dynamic";
 import type { ComponentType, ReactComponentElement, Ref } from "react";
-import { forwardRef } from "react";
+import { forwardRef, memo } from "react";
 import type { IconProps } from "@components/Icon/Icon.types";
 
 type ForwardedRefProp<P> = {
@@ -46,4 +46,4 @@ const Icon = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
 
 Icon.displayName = "Icon";
 
-export default Icon;
+export default memo(Icon);
