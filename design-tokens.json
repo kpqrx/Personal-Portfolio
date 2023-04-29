@@ -1,5 +1,6 @@
 {
   "sizes": {
+    "xxxxs": "4px",
     "xxxs": "8px",
     "xxs": "12px",
     "xs": "24px",
@@ -46,11 +47,12 @@
     "sm": "2.125rem",
     "md": "2.125rem",
     "lg": "4rem",
-    "xl": "5.125rem"
+    "xl": "5.75rem"
   },
-  "breakpoints": {
+  "screens": {
     "sm": "360px",
     "md": "768px",
-    "lg": "1440px"
+    "lg": "1024px",
+    "xl": "1440px"
   }
 }

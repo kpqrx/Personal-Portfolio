@@ -2,15 +2,8 @@ import designTokens from "../../design-tokens.json";
 import { createGlobalStyle } from "styled-components";
 import { Poppins } from "next/font/google";
 
-const {
-  sizes,
-  radii,
-  colors,
-  fontWeights,
-  fontSizes,
-  lineHeights,
-  breakpoints,
-} = designTokens;
+const { sizes, radii, colors, fontWeights, fontSizes, lineHeights, screens } =
+  designTokens;
 
 const loadedFont = Poppins({
   subsets: ["latin"],
@@ -18,9 +11,12 @@ const loadedFont = Poppins({
 });
 
 const base = {
-  sizes,
+  sizes: (...values: (keyof typeof sizes)[]) =>
+    values.map((value) => sizes[value]).join(" "),
   radii,
-  breakpoints,
+  breakpoints: (size: keyof typeof screens) =>
+    ` screen and (min-width: ${screens[size]})`,
+  screens,
   typography: {
     xl: {
       fontSize: fontSizes.xl,
@@ -48,6 +44,9 @@ const base = {
       fontWeight: fontWeights.regular,
     },
   },
+  fontSizes,
+  fontWeights,
+  lineHeights,
 };
 
 export const lightTheme = {
@@ -57,7 +56,7 @@ export const lightTheme = {
     text: {
       primary: colors.black,
       secondary: colors.gray[600],
-      tertiary: colors.gray[400],
+      tertiary: colors.gray[500],
     },
     bg: {
       primary: colors.white,
@@ -95,6 +94,25 @@ export const GlobalStyle = createGlobalStyle`
     position: absolute;
     width: 0;
     height: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  ul, ol { 
+    list-style: none;
+  }
+
+  button, select, input, textarea {
+    background: transparent;
+    border: none;
+    font-family: inherit;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: initial;
   }
 
   html {
