@@ -7,7 +7,7 @@ const { sizes, radii, colors, fontWeights, fontSizes, lineHeights, screens } =
 
 const loadedFont = Poppins({
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["300", "600"],
 });
 
 const base = {

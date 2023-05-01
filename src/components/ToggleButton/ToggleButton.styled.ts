@@ -30,11 +30,13 @@ export const StyledIcon = styled(motion(Icon))<{ $isAbsolute?: boolean }>`
   height: 24px;
 `;
 
-export const StyledLabel = styled.span`
+export const StyledLabel = styled(motion.span)<{ $isVisible: boolean }>`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   line-height: ${({ theme }) => theme.sizes("xs")};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   width: ${({ theme }) => theme.sizes("xs")};
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  transition: 0.25s opacity ease;
   flex: 1;
   text-align: center;
 `;

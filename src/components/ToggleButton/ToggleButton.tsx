@@ -6,7 +6,7 @@ import {
 } from "./ToggleButton.styled";
 import type { ToggleButtonProps } from "@/components/ToggleButton/ToggleButton.types";
 
-const variants = {
+const iconVariants = {
   withLabels: {
     toggled: {
       x: "100%",
@@ -37,6 +37,7 @@ function ToggleButton(props: ToggleButtonProps) {
     labels = [],
   } = props;
   const [defaultIcon, toggledIcon] = icons;
+  const [defaultLabel, toggledLabel] = labels;
 
   const [isToggled, setIsToggled] = useState(isToggledByDefault);
 
@@ -55,13 +56,17 @@ function ToggleButton(props: ToggleButtonProps) {
       <StyledIcon
         name={currentIcon}
         $isAbsolute={labels.length > 0}
-        variants={variants[labels.length > 0 ? "withLabels" : "withoutLabels"]}
+        variants={
+          iconVariants[labels.length > 0 ? "withLabels" : "withoutLabels"]
+        }
         animate={isToggled ? "toggled" : "default"}
       />
-      {labels.length > 0 &&
-        labels.map((label, key) => (
-          <StyledLabel key={key}>{label}</StyledLabel>
-        ))}
+      {labels.length > 0 && (
+        <>
+          <StyledLabel $isVisible={isToggled}>{defaultLabel}</StyledLabel>
+          <StyledLabel $isVisible={!isToggled}>{toggledLabel}</StyledLabel>
+        </>
+      )}
     </StyledContainer>
   );
 }
