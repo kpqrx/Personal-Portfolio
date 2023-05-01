@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import "styled-components";
 import { lightTheme } from "@/theme";
 

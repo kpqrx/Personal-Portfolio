@@ -1,6 +1,11 @@
 import designTokens from "../../design-tokens.json";
-import { createGlobalStyle } from "styled-components";
+import {
+  createGlobalStyle,
+  ThemeProvider as BaseThemeProvider,
+} from "styled-components";
 import { Poppins } from "next/font/google";
+import { createContext, useCallback, useEffect, useState } from "react";
+import type { PropsWithChildren } from "react";
 
 const { sizes, radii, colors, fontWeights, fontSizes, lineHeights, screens } =
   designTokens;
@@ -76,14 +81,14 @@ export const darkTheme = {
       tertiary: colors.gray[400],
     },
     bg: {
-      primary: colors.gray[700],
+      primary: colors.gray[800],
       secondary: colors.gray[600],
       tertiary: colors.gray[500],
     },
   },
 } as const;
 
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -121,7 +126,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const SVGDefinitions = () => (
+const SVGDefinitions = () => (
   <svg className="hidden">
     <defs>
       <linearGradient id="gradient">
@@ -132,3 +137,33 @@ export const SVGDefinitions = () => (
     </defs>
   </svg>
 );
+
+type DarkModeContextType = {
+  isDarkModeEnabled: boolean;
+  toggleDarkMode: () => void;
+};
+
+export const DarkModeContext = createContext({} as DarkModeContextType);
+
+export const ThemeProvider = ({ children }: PropsWithChildren) => {
+  const [isDarkModeEnabled, setDarkMode] = useState(false);
+
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode((prevState) => !prevState);
+  }, [setDarkMode]);
+
+  return (
+    <DarkModeContext.Provider
+      value={{
+        isDarkModeEnabled,
+        toggleDarkMode,
+      }}
+    >
+      <BaseThemeProvider theme={isDarkModeEnabled ? darkTheme : lightTheme}>
+        <GlobalStyle />
+        <SVGDefinitions />
+        {children}
+      </BaseThemeProvider>
+    </DarkModeContext.Provider>
+  );
+};

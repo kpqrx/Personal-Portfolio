@@ -10,6 +10,8 @@ import {
 import { useCycle } from "framer-motion";
 import type { NavigationItemProps } from "@/components/Navigation/Navigation.types";
 import ToggleButton from "@/components/ToggleButton";
+import { DarkModeContext } from "@/theme";
+import { useContext } from "react";
 
 const navigationItems: NavigationItemProps[] = [
   { label: "Strona główna", icon: "home", href: "#" },
@@ -20,6 +22,7 @@ const navigationItems: NavigationItemProps[] = [
 
 function Navigation() {
   const [isToggled, handleToggle] = useCycle(false, true);
+  const { isDarkModeEnabled, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
     <StyledContainer animate={isToggled ? "open" : "closed"} initial="initial">
@@ -33,7 +36,8 @@ function Navigation() {
             labels={["EN", "PL"]}
           />
           <ToggleButton
-            onToggle={() => console.log("Toggled")}
+            onToggle={() => toggleDarkMode()}
+            isToggled={isDarkModeEnabled}
             icons={["moon", "sun"]}
           />
         </StyledTogglersContainer>

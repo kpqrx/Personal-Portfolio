@@ -7,7 +7,7 @@ export const StyledContainer = styled.div`
   width: 100%;
   padding: ${({ theme }) => theme.sizes("lg", "xxxs")};
   color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.gray[700]};
+  background-color: ${({ theme }) => theme.colors.gray[800]};
   overflow-x: hidden;
 
   @media ${({ theme }) => theme.breakpoints("md")} {
@@ -89,7 +89,7 @@ const StyledSliderCardBase = styled.article`
   gap: ${({ theme }) => theme.sizes("xxs")};
   padding: ${({ theme }) => theme.sizes("xs", "sm")};
   border-radius: ${({ theme }) => theme.sizes("xs")};
-  background-color: ${({ theme }) => theme.colors.gray[600]};
+  background-color: ${({ theme }) => theme.colors.gray[700]};
   min-width: clamp(375px, 40%, 375px);
 `;
 
