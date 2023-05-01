@@ -66,18 +66,7 @@ function Slider(props: PropsWithChildren) {
   const handleNext = () => {
     const currentXValue = xPos.current;
 
-    console.log({
-      currentXValue,
-      leftConstraint,
-      scrollWidth,
-      scrollOffset,
-      itemsGap,
-      itemWidth,
-      xd: leftConstraint - currentXValue,
-    });
-
     if (Math.abs(leftConstraint - currentXValue + itemWidth) <= itemWidth) {
-      console.log("elo");
       animation.start({ x: leftConstraint });
       return;
     }

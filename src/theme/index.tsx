@@ -93,6 +93,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: background 0.25s ease;
   }
 
   .hidden {
@@ -138,19 +139,66 @@ const SVGDefinitions = () => (
   </svg>
 );
 
+type ThemeToggleFunctionOptionsType = {
+  forceSetDark?: boolean;
+  toggleLocalStorage?: boolean;
+};
+
 type DarkModeContextType = {
   isDarkModeEnabled: boolean;
-  toggleDarkMode: () => void;
+  toggleDarkMode: (options?: ThemeToggleFunctionOptionsType) => void;
 };
+
+type PersistedThemeType = "LIGHT" | "DARK";
 
 export const DarkModeContext = createContext({} as DarkModeContextType);
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
   const [isDarkModeEnabled, setDarkMode] = useState(false);
 
+  const setLocalStorageTheme = useCallback((theme: PersistedThemeType) => {
+    if (!window.localStorage) {
+      return;
+    }
+    window.localStorage.setItem("theme", theme);
+  }, []);
+
   const toggleDarkMode = useCallback(() => {
     setDarkMode((prevState) => !prevState);
-  }, [setDarkMode]);
+    setLocalStorageTheme(isDarkModeEnabled ? "LIGHT" : "DARK");
+  }, [isDarkModeEnabled, setDarkMode, setLocalStorageTheme]);
+
+  useEffect(() => {
+    if (!window.localStorage) {
+      return;
+    }
+
+    const persistedTheme = window.localStorage.getItem("theme");
+    const deviceDarkModeMediaQuery = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    );
+
+    const handleMediaQueryChange = ({
+      matches: shouldSetDarkMode,
+    }: MediaQueryListEvent) => {
+      setDarkMode(shouldSetDarkMode);
+      setLocalStorageTheme(shouldSetDarkMode ? "DARK" : "LIGHT");
+    };
+
+    setDarkMode(
+      persistedTheme
+        ? persistedTheme === "DARK"
+        : deviceDarkModeMediaQuery.matches
+    );
+
+    deviceDarkModeMediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    return () =>
+      deviceDarkModeMediaQuery.removeEventListener(
+        "change",
+        handleMediaQueryChange
+      );
+  });
 
   return (
     <DarkModeContext.Provider

@@ -63,12 +63,8 @@ const StyledCTAButtonBase = styled.button`
   bottom: ${({ theme }) => theme.sizes("md")};
   z-index: 10;
   animation: ${ctaAnimation} 2500ms infinite;
-  color: ${({ theme }) => theme.colors.text.primary};
-  mix-blend-mode: multiply;
-
-  @media (prefers-color-scheme: dark) {
-    mix-blend-mode: exclusion;
-  }
+  color: ${({ theme }) => theme.colors.white};
+  mix-blend-mode: exclusion;
 
   &::before {
     content: "";
@@ -87,7 +83,7 @@ const StyledCTAButtonBase = styled.button`
   }
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     animation-play-state: paused;
   }
 `;
@@ -96,11 +92,7 @@ const StyledCTAButtonText = styled.span`
   ${({ theme }) => theme.typography.xs};
   text-transform: uppercase;
   padding: ${({ theme }) => theme.sizes("xxxs")} 0;
-  background-color: #fff;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: #000;
-  }
+  background-color: #000;
 `;
 
 export const StyledCTAButton = Object.assign(StyledCTAButtonBase, {
@@ -128,21 +120,11 @@ const StyledTypographyWrapper = styled.h1`
   user-select: none;
 `;
 
-const StyledTypographyBase = styled.div`
-  mix-blend-mode: darken;
-
-  @media (prefers-color-scheme: dark) {
-    mix-blend-mode: lighten;
-  }
-`;
+const StyledTypographyBase = styled.div``;
 
 const StyledTypographyStroke = styled.span`
   -webkit-text-stroke: 6px transparent;
-  color: #fff;
-
-  @media (prefers-color-scheme: dark) {
-    color: #000;
-  }
+  color: ${({ theme }) => theme.colors.bg.primary};
 `;
 
 export const StyledTypography = Object.assign(StyledTypographyBase, {
@@ -153,5 +135,6 @@ export const StyledTypography = Object.assign(StyledTypographyBase, {
 export const StyledSeparator = styled.hr`
   max-width: clamp(64px, 20rem, 360px);
   background: ${({ theme }) => theme.colors.bg.tertiary};
+  border: none;
   height: 2px;
 `;

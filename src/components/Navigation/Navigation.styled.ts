@@ -25,7 +25,6 @@ export const StyledNavigationWrapper = styled.nav<{ isToggled: boolean }>`
   width: 100vw;
   height: 100vh;
   inset: 0;
-  transition: all ease 0.25s;
   background-color: ${({ theme }) => theme.colors.bg.secondary};
 
   @media ${({ theme }) => theme.breakpoints("lg")} {

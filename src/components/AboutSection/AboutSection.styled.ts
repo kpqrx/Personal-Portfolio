@@ -36,7 +36,7 @@ const StyledHeadingBase = styled.div`
   gap: ${({ theme }) => theme.sizes("xxxs")};
 
   @media ${({ theme }) => theme.breakpoints("lg")} {
-    flex-basis: min(435px, 50%);
+    flex-basis: min(525px, 50%);
   }
 `;
 
@@ -71,7 +71,7 @@ export const StyledHeadingDecorator = styled(Icon)`
   position: absolute;
   inset: 0;
   stroke-width: 1px;
-  stroke-opacity: 0.125;
+  stroke-opacity: 0.25;
   transform-origin: right;
 
   &::last-of-type {
@@ -98,7 +98,7 @@ const StyledSliderCardHeading = styled.h3`
 `;
 
 const StyledSliderCardContent = styled.p`
-  color: ${({ theme }) => theme.colors.text.tertiary};
+  color: ${({ theme }) => theme.colors.gray[400]};
   ${({ theme }) => theme.typography.sm};
 `;
 
