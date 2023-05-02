@@ -5,7 +5,7 @@ import styled from "styled-components";
 export const StyledContainer = styled.div`
   position: relative;
   width: 100%;
-  padding: ${({ theme }) => theme.sizes("lg", "xxxs")};
+  padding: ${({ theme }) => theme.sizes("lg", "xxs")};
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.gray[800]};
   overflow-x: hidden;

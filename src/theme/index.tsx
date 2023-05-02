@@ -88,7 +88,7 @@ export const darkTheme = {
   },
 } as const;
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -127,7 +127,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const SVGDefinitions = () => (
+export const SVGDefinitions = () => (
   <svg className="hidden">
     <defs>
       <linearGradient id="gradient">
@@ -198,7 +198,7 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
         "change",
         handleMediaQueryChange
       );
-  });
+  }, [setLocalStorageTheme]);
 
   return (
     <DarkModeContext.Provider

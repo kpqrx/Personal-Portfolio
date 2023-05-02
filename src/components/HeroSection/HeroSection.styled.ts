@@ -4,7 +4,7 @@ export const StyledContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100vh;
-  padding: ${({ theme }) => theme.sizes("sm", "xxxs")};
+  padding: ${({ theme }) => theme.sizes("sm", "xxs")};
   background-color: ${({ theme }) => theme.colors.bg.primary};
 
   @media ${({ theme }) => theme.breakpoints("md")} {
