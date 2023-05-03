@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export const StyledContainer = styled.div`
   display: flex;
@@ -8,7 +8,7 @@ export const StyledContainer = styled.div`
   width: 100%;
   height: 100%;
 `;
-export const StyledWrapper = styled(motion.div)`
+export const StyledWrapper = styled(m.div)`
   display: flex;
   gap: ${({ theme }) => theme.sizes("lg")};
   justify-content: space-between;

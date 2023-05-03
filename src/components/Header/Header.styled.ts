@@ -1,13 +1,18 @@
 import Logo from "@/components/Logo";
+import { m } from "framer-motion";
 import styled from "styled-components";
 
-export const StyledContainer = styled.header`
+export const StyledContainer = styled(m.header)`
   position: fixed;
   width: 100%;
   padding: ${({ theme }) => theme.sizes("xxs")};
   color: ${({ theme }) => theme.colors.text.primary};
   z-index: 20;
-  backdrop-filter: blur(24px);
+  will-change: backdrop-filter;
+  backdrop-filter: blur(calc(var(--scroll-modifier) * 12px))
+    contrast(calc(1 + (var(--scroll-modifier) * 0.05)))
+    brightness(calc(1 - (var(--scroll-modifier) * 0.05)));
+  border-bottom: 1px solid hsla(0, 0%, 0%, calc(0.05 * var(--scroll-modifier)));
 
   @media ${({ theme }) => theme.breakpoints("md")} {
     padding: ${({ theme }) => theme.sizes("xs", "xxxl")};

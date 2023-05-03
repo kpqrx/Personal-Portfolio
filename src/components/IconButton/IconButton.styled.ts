@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Tooltip from "@/components/Tooltip";
 
-export const StyledContainer = styled(motion.button)`
+export const StyledContainer = styled(m.button)`
   padding: ${({ theme }) => theme.sizes("xxxs")};
   position: relative;
   color: ${({ theme }) => theme.colors.text.tertiary};
@@ -22,7 +22,7 @@ const tooltipPositions = {
   `,
 };
 
-export const StyledTooltip = styled(motion(Tooltip))`
+export const StyledTooltip = styled(m(Tooltip))`
   position: absolute;
   margin-top: ${({ theme }) => theme.sizes("xxxs")};
   ${({ anchorPoint = "center" }) => tooltipPositions[anchorPoint]};

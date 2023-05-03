@@ -8,11 +8,14 @@ import {
   StyledHeading,
   StyledProgressWrapper,
 } from "@/components/PortfolioSection/PortfolioSection.styled";
-import React from "react";
+import { DarkModeContext } from "@/theme";
+import React, { useContext } from "react";
 
 function PortfolioSection() {
+  const { isDarkModeEnabled } = useContext(DarkModeContext);
+
   return (
-    <StyledContainer>
+    <StyledContainer $isDarkModeEnabled={isDarkModeEnabled}>
       <StyledWrapper>
         <StyledHeading>Portfolio</StyledHeading>
         <StyledFiltersWrapper>

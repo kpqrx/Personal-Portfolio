@@ -7,11 +7,23 @@ export const StyledContainer = styled.div`
   width: 100%;
   padding: ${({ theme }) => theme.sizes("lg", "xxs")};
   color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.gray[800]};
+  background: radial-gradient(
+    ellipse 100% 50%,
+    ${({ theme }) => theme.colors.gray[700]} 5%,
+    ${({ theme }) => theme.colors.gray[800]} 55%
+  );
   overflow-x: hidden;
 
   @media ${({ theme }) => theme.breakpoints("md")} {
     padding: ${({ theme }) => theme.sizes("lg", "xl")};
+  }
+  @media ${({ theme }) => theme.breakpoints("lg")} {
+    background: radial-gradient(
+      ellipse 60% 50%,
+      ${({ theme }) => theme.colors.gray[700]} 5%,
+      ${({ theme }) => theme.colors.gray[800]} 55%
+    );
+    background-position: 16vw -16vh;
   }
   @media ${({ theme }) => theme.breakpoints("xl")} {
     padding: ${({ theme }) => theme.sizes("xxxl")};

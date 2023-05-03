@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Icon from "@/components/Icon";
 
 export const StyledContainer = styled.button`
@@ -19,7 +19,7 @@ export const StyledContainer = styled.button`
   }
 `;
 
-export const StyledIcon = styled(motion(Icon))<{ $isAbsolute?: boolean }>`
+export const StyledIcon = styled(m(Icon))<{ $isAbsolute?: boolean }>`
   ${({ $isAbsolute }) =>
     $isAbsolute &&
     css`
@@ -30,7 +30,7 @@ export const StyledIcon = styled(motion(Icon))<{ $isAbsolute?: boolean }>`
   height: 24px;
 `;
 
-export const StyledLabel = styled(motion.span)<{ $isVisible: boolean }>`
+export const StyledLabel = styled(m.span)<{ $isVisible: boolean }>`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   line-height: ${({ theme }) => theme.sizes("xs")};
   font-weight: ${({ theme }) => theme.fontWeights.bold};

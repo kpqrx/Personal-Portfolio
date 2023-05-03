@@ -122,8 +122,12 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    font-size: 16px;
+    font-size: 14px;
     font-family: ${loadedFont.style.fontFamily};
+
+    @media (min-width: 1024px) {
+      font-size: 16px;
+    }
   }
 `;
 

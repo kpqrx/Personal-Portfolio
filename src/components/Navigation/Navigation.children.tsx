@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type {
   NavigationListProps,
   NavigationToggleButtonProps,
@@ -43,8 +43,8 @@ export function NavigationToggleButton(props: NavigationToggleButtonProps) {
   return (
     <StyledNavigationToggleButton onClick={onClick}>
       <svg viewBox="0 0 24 24" width="24" height="24">
-        <motion.path variants={buttonPathsVariants.top} />
-        <motion.path variants={buttonPathsVariants.bottom} />
+        <m.path variants={buttonPathsVariants.top} />
+        <m.path variants={buttonPathsVariants.bottom} />
       </svg>
     </StyledNavigationToggleButton>
   );

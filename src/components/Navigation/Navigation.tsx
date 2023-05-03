@@ -27,7 +27,7 @@ function Navigation() {
   return (
     <StyledContainer animate={isToggled ? "open" : "closed"} initial="initial">
       <NavigationToggleButton onClick={() => handleToggle()} />
-      <StyledNavigationWrapper isToggled={isToggled}>
+      <StyledNavigationWrapper $isToggled={isToggled}>
         <NavigationList items={navigationItems} />
         <StyledTogglersContainer>
           <ToggleButton

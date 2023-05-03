@@ -1,7 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  Children,
+  cloneElement,
+  createRef,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import type { PropsWithChildren } from "react";
-import { useAnimation } from "framer-motion";
-import type { ResolvedValues } from "framer-motion";
+import { useMotionValue, useSpring, useTransform } from "framer-motion";
+import type { PanInfo } from "framer-motion";
 import Icon from "@/components/Icon";
 import {
   StyledContainer,
@@ -12,106 +19,85 @@ import {
 
 function Slider(props: PropsWithChildren) {
   const { children, ...restProps } = props;
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const [leftConstraint, setLeftConstraint] = useState(0);
-  const [scrollWidth, setScrollWidth] = useState(0);
-  const [scrollOffset, setScrollOffset] = useState(0);
-  const [itemsGap, setItemsGap] = useState(0);
-  const [itemWidth, setItemWidth] = useState(0);
-  const xPos = useRef(0);
-  const animation = useAnimation();
+  const childrenRefs = Children.toArray(children).map(() => createRef());
+  const childrenWithRefs = Children.map(children, (child, index) =>
+    cloneElement(child, { ref: childrenRefs[index] })
+  );
 
-  const handleDragUpdate = (latest: ResolvedValues) => {
-    xPos.current = +latest.x;
-  };
+  const [slideWidths, setSlideWidths] = useState([]);
+
+  console.log("rerender");
 
   useEffect(() => {
-    const getValues = () => {
-      if (
-        !(
-          wrapperRef.current?.firstElementChild &&
-          wrapperRef.current?.parentElement
-        )
-      ) {
-        return;
-      }
+    const widths = childrenRefs.map((childRef) => {
+      const { width } = childRef.current.getBoundingClientRect();
+      return width;
+    });
 
-      const scrollWidth = wrapperRef.current?.scrollWidth;
-      const width = wrapperRef.current.parentElement?.offsetWidth;
-      const scrollOffset = wrapperRef.current.parentElement?.offsetLeft;
-      const itemsGap = parseInt(
-        getComputedStyle(wrapperRef.current).columnGap,
-        10
-      );
-      const itemWidth = parseInt(
-        getComputedStyle(wrapperRef.current.firstElementChild).width,
-        10
-      );
+    setSlideWidths(widths);
+  }, []);
 
-      setScrollWidth(scrollWidth);
-      setScrollOffset(scrollOffset);
-      setItemsGap(itemsGap);
-      setItemWidth(itemWidth);
-      setLeftConstraint(-scrollWidth + width);
-    };
+  const scrollPositionSync = useMotionValue(0);
+  const dragFlex = useMotionValue(0);
 
-    window.addEventListener("resize", getValues);
-    // TODO: implement debounce
-    getValues();
-
-    return () => window.removeEventListener("resize", getValues);
-  }, [setLeftConstraint, setScrollWidth]);
-
-  // TODO: implement throttling for slide control handlers
-  const handleNext = () => {
-    const currentXValue = xPos.current;
-
-    if (Math.abs(leftConstraint - currentXValue + itemWidth) <= itemWidth) {
-      animation.start({ x: leftConstraint });
-      return;
+  const scrollPosition = useTransform(
+    [scrollPositionSync, dragFlex],
+    ([x, y]) => {
+      return x * -(375 + 64) + y;
     }
+  );
+  const scrollPositionSpring = useSpring(scrollPosition, {
+    stiffness: 350,
+    damping: 15,
+    mass: 0.25,
+  });
 
-    animation.start({ x: currentXValue - itemWidth - itemsGap });
+  const handlePanEnd = (_, info: PanInfo) => {
+    const { offset } = info;
+
+    const sliderPostionOffset = Math.floor(Math.abs(offset.x) / (375 / 4));
+
+    scrollPositionSync.set(
+      scrollPositionSync.get() +
+        (offset.x > 0 ? -sliderPostionOffset : sliderPostionOffset)
+    );
+    dragFlex.set(0);
   };
 
+  const handlePan = (event: PointerEvent, info: PanInfo) => {
+    event.preventDefault();
+
+    const { offset } = info;
+
+    dragFlex.set(offset.x);
+  };
+
+  const handleNext = () => {
+    if (scrollPositionSync.get() === slideWidths.length - 1) {
+      return;
+    }
+
+    scrollPositionSync.set(scrollPositionSync.get() + 1);
+  };
   const handlePrevious = () => {
-    const currentXValue = xPos.current;
-
-    if (
-      currentXValue === 0 ||
-      (currentXValue > 0 && currentXValue <= itemWidth)
-    ) {
+    if (scrollPositionSync.get() === 0) {
       return;
     }
 
-    if (currentXValue === leftConstraint) {
-      animation.start({
-        x: currentXValue + itemWidth + itemsGap - scrollOffset,
-      });
-      return;
-    }
-
-    animation.start({
-      x:
-        currentXValue + itemWidth + itemsGap > 0 &&
-        currentXValue + itemWidth + itemsGap < itemWidth
-          ? 0
-          : currentXValue + itemWidth + itemsGap + scrollOffset,
-    });
+    scrollPositionSync.set(scrollPositionSync.get() - 1);
   };
 
   return (
     <StyledContainer {...restProps}>
       <StyledWrapper
-        ref={wrapperRef}
-        drag="x"
-        // TODO: fix corelation between touch and button action
-        dragConstraints={{ right: 0, left: leftConstraint }}
-        onUpdate={handleDragUpdate}
-        animate={animation}
-        style={{ width: scrollWidth }}
+        onPan={handlePan}
+        onPanEnd={handlePanEnd}
+        style={{
+          x: scrollPositionSpring,
+          touchAction: "none",
+        }}
       >
-        {children}
+        {childrenWithRefs}
       </StyledWrapper>
       <StyledButtonsWrapper>
         <StyledButton onClick={handlePrevious}>

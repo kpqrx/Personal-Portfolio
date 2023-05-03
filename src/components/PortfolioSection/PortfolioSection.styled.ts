@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const StyledContainer = styled.div`
+export const StyledContainer = styled.div<{ $isDarkModeEnabled: boolean }>`
   position: relative;
   width: 100%;
   padding: ${({ theme }) => theme.sizes("lg", "xxs")};
@@ -21,27 +21,42 @@ export const StyledContainer = styled.div`
     padding: ${({ theme }) => theme.sizes("xxxl")};
   }
 
-  &::before {
-    content: "";
-    background: ${({ theme }) => theme.colors.bg.primary};
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 256px;
-    clip-path: polygon(
-      0 0,
-      14% 25%,
-      28% 5%,
-      43% 45%,
-      57% 27%,
-      71% 48%,
-      86% 17%,
-      100% 0,
-      100% 100%,
-      0 100%
-    );
-  }
+  ${({ $isDarkModeEnabled }) =>
+    $isDarkModeEnabled &&
+    css`
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 128px;
+        clip-path: polygon(
+          0 0,
+          14% 75%,
+          28% 5%,
+          43% 70%,
+          57% 25%,
+          71% 80%,
+          86% 60%,
+          100% 0,
+          100% 100%,
+          0 100%
+        );
+      }
+
+      &::before {
+        top: 0;
+        transform: translateY(-100%);
+        background: inherit;
+        background-color: transparent;
+      }
+
+      &::after {
+        bottom: 0;
+        background: ${({ theme }) => theme.colors.bg.primary};
+      }
+    `}
 `;
 
 export const StyledWrapper = styled.div`
