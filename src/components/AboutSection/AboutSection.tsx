@@ -8,6 +8,7 @@ import {
   StyledSlider,
   StyledSliderCard,
 } from "@/components/AboutSection/AboutSection.styled";
+import { forwardRef } from "react";
 
 const sliderItems = [
   {
@@ -47,9 +48,9 @@ const sliderItems = [
   },
 ];
 
-function AboutSection() {
+const AboutSection = forwardRef<HTMLDivElement>((props, ref) => {
   return (
-    <StyledContainer>
+    <StyledContainer {...props} ref={ref}>
       <StyledWrapper>
         <StyledHeading>
           <StyledHeading.Primary>Cześć</StyledHeading.Primary>
@@ -94,6 +95,7 @@ function AboutSection() {
       </StyledWrapper>
     </StyledContainer>
   );
-}
+});
 
+AboutSection.displayName = "AboutSection";
 export default AboutSection;

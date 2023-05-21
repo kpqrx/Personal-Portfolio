@@ -4,8 +4,11 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import PortfolioSection from "@/components/PortfolioSection";
 import Head from "next/head";
+import { useRef } from "react";
 
 export default function Home() {
+  const aboutSectionRef = useRef<HTMLDivElement>(null);
+
   return (
     <>
       <Head>
@@ -14,9 +17,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <Header invertRefs={[aboutSectionRef]} />
       <HeroSection />
-      <AboutSection />
+      <AboutSection ref={aboutSectionRef} />
       <PortfolioSection />
       <Footer />
     </>

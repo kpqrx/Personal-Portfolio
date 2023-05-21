@@ -62,6 +62,7 @@ export const lightTheme = {
       primary: colors.black,
       secondary: colors.gray[600],
       tertiary: colors.gray[500],
+      inverted: colors.white,
     },
     bg: {
       primary: colors.white,
@@ -79,6 +80,7 @@ export const darkTheme = {
       primary: colors.white,
       secondary: colors.gray[300],
       tertiary: colors.gray[400],
+      inverted: colors.black,
     },
     bg: {
       primary: colors.gray[800],
@@ -148,17 +150,20 @@ type ThemeToggleFunctionOptionsType = {
   toggleLocalStorage?: boolean;
 };
 
-type DarkModeContextType = {
+type ThemeContextType = {
   isDarkModeEnabled: boolean;
   toggleDarkMode: (options?: ThemeToggleFunctionOptionsType) => void;
+  isHeaderInverted: boolean;
+  toggleHeaderInverted: () => void;
 };
 
 type PersistedThemeType = "LIGHT" | "DARK";
 
-export const DarkModeContext = createContext({} as DarkModeContextType);
+export const ThemeContext = createContext({} as ThemeContextType);
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
   const [isDarkModeEnabled, setDarkMode] = useState(false);
+  const [isHeaderInverted, setIsHeaderInverted] = useState(false);
 
   const setLocalStorageTheme = useCallback((theme: PersistedThemeType) => {
     if (!window.localStorage) {
@@ -171,6 +176,10 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
     setDarkMode((prevState) => !prevState);
     setLocalStorageTheme(isDarkModeEnabled ? "LIGHT" : "DARK");
   }, [isDarkModeEnabled, setDarkMode, setLocalStorageTheme]);
+
+  const toggleHeaderInverted = useCallback(() => {
+    setIsHeaderInverted((prevState) => !prevState);
+  }, [setIsHeaderInverted]);
 
   useEffect(() => {
     if (!window.localStorage) {
@@ -205,10 +214,12 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
   }, [setLocalStorageTheme]);
 
   return (
-    <DarkModeContext.Provider
+    <ThemeContext.Provider
       value={{
         isDarkModeEnabled,
         toggleDarkMode,
+        isHeaderInverted,
+        toggleHeaderInverted,
       }}
     >
       <BaseThemeProvider theme={isDarkModeEnabled ? darkTheme : lightTheme}>
@@ -216,6 +227,6 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
         <SVGDefinitions />
         {children}
       </BaseThemeProvider>
-    </DarkModeContext.Provider>
+    </ThemeContext.Provider>
   );
 };

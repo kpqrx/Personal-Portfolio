@@ -19,18 +19,20 @@ import {
 
 function Slider(props: PropsWithChildren) {
   const { children, ...restProps } = props;
-  const childrenRefs = Children.toArray(children).map(() => createRef());
+  const childrenRefs = Children.toArray(children).map(() =>
+    createRef<HTMLElement>()
+  );
   const childrenWithRefs = Children.map(children, (child, index) =>
     cloneElement(child, { ref: childrenRefs[index] })
   );
 
   const [slideWidths, setSlideWidths] = useState([]);
 
-  console.log("rerender");
-
   useEffect(() => {
     const widths = childrenRefs.map((childRef) => {
-      const { width } = childRef.current.getBoundingClientRect();
+      const { width } = childRef.current?.getBoundingClientRect() || {
+        width: 0,
+      };
       return width;
     });
 

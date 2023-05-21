@@ -2,17 +2,19 @@ import Logo from "@/components/Logo";
 import { m } from "framer-motion";
 import styled from "styled-components";
 
-export const StyledContainer = styled(m.header)`
+export const StyledContainer = styled(m.header)<{ $isColorInverted: boolean }>`
   position: fixed;
   width: 100%;
   padding: ${({ theme }) => theme.sizes("xxs")};
-  color: ${({ theme }) => theme.colors.text.primary};
+  color: ${({ theme, $isColorInverted }) =>
+    $isColorInverted ? theme.colors.text.inverted : theme.colors.text.primary};
   z-index: 20;
   will-change: backdrop-filter;
   backdrop-filter: blur(calc(var(--scroll-modifier) * 12px))
     contrast(calc(1 + (var(--scroll-modifier) * 0.05)))
     brightness(calc(1 - (var(--scroll-modifier) * 0.05)));
   border-bottom: 1px solid hsla(0, 0%, 0%, calc(0.05 * var(--scroll-modifier)));
+  transition-property: color;
 
   @media ${({ theme }) => theme.breakpoints("md")} {
     padding: ${({ theme }) => theme.sizes("xs", "xxxl")};
@@ -33,6 +35,7 @@ export const StyledLogo = styled(Logo)`
   flex: 1;
   height: 100%;
   z-index: 20;
+  color: currentColor;
 
   @media ${({ theme }) => theme.breakpoints("lg")} {
     height: auto;
