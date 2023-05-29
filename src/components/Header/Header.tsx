@@ -30,8 +30,6 @@ function Header(props: HeaderProps) {
         return;
       }
 
-      console.log(ref.current);
-
       const { top, height } = ref.current.getBoundingClientRect();
       const toggleThreshold = -top + headerHeight * 0.5;
       const isHeaderIntersectingToggleArea =

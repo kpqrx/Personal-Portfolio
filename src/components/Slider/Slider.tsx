@@ -3,10 +3,15 @@ import {
   cloneElement,
   createRef,
   useEffect,
-  useRef,
   useState,
+  isValidElement,
 } from "react";
-import type { PropsWithChildren } from "react";
+import type {
+  PropsWithChildren,
+  HTMLProps,
+  ReactNode,
+  DetailedReactHTMLElement,
+} from "react";
 import { useMotionValue, useSpring, useTransform } from "framer-motion";
 import type { PanInfo } from "framer-motion";
 import Icon from "@/components/Icon";
@@ -22,11 +27,25 @@ function Slider(props: PropsWithChildren) {
   const childrenRefs = Children.toArray(children).map(() =>
     createRef<HTMLElement>()
   );
-  const childrenWithRefs = Children.map(children, (child, index) =>
-    cloneElement(child, { ref: childrenRefs[index] })
+  const childrenWithRefs = Children.map(
+    children,
+    (child: ReactNode, index: number) => {
+      if (isValidElement(child)) {
+        return cloneElement<HTMLProps<HTMLElement>, HTMLElement>(
+          child as DetailedReactHTMLElement<
+            HTMLProps<HTMLElement>,
+            HTMLElement
+          >,
+          {
+            ref: childrenRefs[index],
+          }
+        );
+      }
+      return child;
+    }
   );
 
-  const [slideWidths, setSlideWidths] = useState([]);
+  const [slideWidths, setSlideWidths] = useState<number[]>([]);
 
   useEffect(() => {
     const widths = childrenRefs.map((childRef) => {
@@ -44,7 +63,7 @@ function Slider(props: PropsWithChildren) {
 
   const scrollPosition = useTransform(
     [scrollPositionSync, dragFlex],
-    ([x, y]) => {
+    ([x, y]: number[]) => {
       return x * -(375 + 64) + y;
     }
   );
@@ -54,15 +73,26 @@ function Slider(props: PropsWithChildren) {
     mass: 0.25,
   });
 
-  const handlePanEnd = (_, info: PanInfo) => {
+  const handlePanEnd = (event: PointerEvent, info: PanInfo) => {
     const { offset } = info;
 
-    const sliderPostionOffset = Math.floor(Math.abs(offset.x) / (375 / 4));
+    const newScrollPositionSync =
+      scrollPositionSync.get() + (offset.x > 0 ? -1 : 1);
 
-    scrollPositionSync.set(
-      scrollPositionSync.get() +
-        (offset.x > 0 ? -sliderPostionOffset : sliderPostionOffset)
-    );
+    const isEdgeReached =
+      newScrollPositionSync < 0 ||
+      newScrollPositionSync > childrenRefs.length - 1;
+
+    console.log({
+      ox: offset.x,
+      c: scrollPositionSync.get(),
+      chi: childrenRefs.length,
+    });
+
+    if (!isEdgeReached) {
+      scrollPositionSync.set(newScrollPositionSync);
+    }
+
     dragFlex.set(0);
   };
 
