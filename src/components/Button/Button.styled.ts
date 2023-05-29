@@ -18,7 +18,12 @@ export const StyledButton = styled.button<ButtonProps>`
       padding: ${({ theme }) => theme.sizes("xxxxs", "xs")};
       border-radius: ${({ theme }) => theme.sizes("xl")};
       background-color: ${({ theme }) => theme.colors.bg.secondary};
+      font-size: ${({ theme }) => theme.fontSizes.xs};
       transition-property: filter;
+
+      @media ${({ theme }) => theme.breakpoints("md")} {
+        font-size: ${({ theme }) => theme.fontSizes.sm};
+      }
 
       &:hover,
       &:focus-within {

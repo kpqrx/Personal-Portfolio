@@ -11,7 +11,7 @@ import { useCycle } from "framer-motion";
 import type { NavigationItemProps } from "@/components/Navigation/Navigation.types";
 import ToggleButton from "@/components/ToggleButton";
 import { ThemeContext } from "@/theme";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 
 const navigationItems: NavigationItemProps[] = [
   { label: "Strona główna", icon: "home", href: "#" },
@@ -46,4 +46,4 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+export default memo(Navigation);

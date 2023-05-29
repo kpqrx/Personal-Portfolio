@@ -1,1 +1,1 @@
-export { default, HeaderContext } from "./Header";
+export { default } from "./Header";

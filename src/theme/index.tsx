@@ -131,6 +131,10 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 16px;
     }
   }
+
+  body {
+    overflow-x: hidden;
+  }
 `;
 
 export const SVGDefinitions = () => (

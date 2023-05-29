@@ -12,7 +12,6 @@ export const StyledContainer = styled.div`
     ${({ theme }) => theme.colors.gray[800]},
     ${({ theme }) => theme.colors.gray[700]}
   );
-  overflow-x: hidden;
   z-index: 0;
   perspective: 110px;
 
@@ -72,12 +71,12 @@ const StyledHeadingBase = styled.div`
 const StyledHeadingPrimary = styled.h2`
   font-size: clamp(
     ${({ theme }) => theme.fontSizes.md},
-    5.25vw,
+    12vw,
     ${({ theme }) => theme.fontSizes.lg}
   );
   line-height: clamp(
     ${({ theme }) => theme.lineHeights.md},
-    7.25vw,
+    16vw,
     ${({ theme }) => theme.lineHeights.lg}
   );
 `;
@@ -130,6 +129,11 @@ const StyledNavigationBase = styled.ul`
 `;
 const StyledNavigationItem = styled.li`
   ${({ theme }) => theme.typography.md};
+  transition-property: transform;
+
+  &:hover {
+    transform: translateX(${({ theme }) => theme.sizes("xxs")});
+  }
 `;
 export const StyledNavigation = Object.assign(StyledNavigationBase, {
   Item: StyledNavigationItem,

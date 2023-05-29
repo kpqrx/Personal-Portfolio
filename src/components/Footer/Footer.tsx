@@ -7,6 +7,7 @@ import {
   StyledWrapper,
   StyledSignature,
 } from "@/components/Footer/Footer.styled";
+import Link from "next/link";
 
 function Footer() {
   return (
@@ -28,10 +29,18 @@ function Footer() {
           <StyledCVNotice.Button>Wyświetl CV</StyledCVNotice.Button>
         </StyledCVNotice>
         <StyledNavigation>
-          <StyledNavigation.Item>Strona główna</StyledNavigation.Item>
-          <StyledNavigation.Item>O mnie</StyledNavigation.Item>
-          <StyledNavigation.Item>Portfolio</StyledNavigation.Item>
-          <StyledNavigation.Item>Kontakt</StyledNavigation.Item>
+          <StyledNavigation.Item>
+            <Link href="#">Strona główna</Link>
+          </StyledNavigation.Item>
+          <StyledNavigation.Item>
+            <Link href="#">O mnie</Link>
+          </StyledNavigation.Item>
+          <StyledNavigation.Item>
+            <Link href="#">Portfolio</Link>
+          </StyledNavigation.Item>
+          <StyledNavigation.Item>
+            <Link href="#">Kontakt</Link>
+          </StyledNavigation.Item>
         </StyledNavigation>
         <StyledSignature>
           <StyledSignature.Logo />
