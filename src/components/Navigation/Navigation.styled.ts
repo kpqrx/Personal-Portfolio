@@ -1,3 +1,4 @@
+import Icon from "@/components/Icon";
 import { m } from "framer-motion";
 import Link from "next/link";
 import styled, { css } from "styled-components";
@@ -128,4 +129,8 @@ export const StyledTogglersContainer = styled.div`
   @media ${({ theme }) => theme.breakpoints("lg")} {
     flex: 1;
   }
+`;
+
+export const StyledNavigationItemIcon = styled(Icon)`
+  filter: brightness(0.9) contrast(1.15);
 `;

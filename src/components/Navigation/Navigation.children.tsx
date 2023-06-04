@@ -9,6 +9,7 @@ import {
   StyledNavigationItem,
   StyledNavigationToggleButton,
   StyledNavigationLink,
+  StyledNavigationItemIcon,
 } from "@/components/Navigation/Navigation.styled";
 import Icon from "@/components/Icon";
 
@@ -66,7 +67,7 @@ export function NavigationItem(props: NavigationItemProps) {
   return (
     <StyledNavigationItem>
       <StyledNavigationLink href={href}>
-        <Icon name={icon} gradientStroke />
+        <StyledNavigationItemIcon name={icon} gradientStroke />
         <span>{label}</span>
       </StyledNavigationLink>
     </StyledNavigationItem>

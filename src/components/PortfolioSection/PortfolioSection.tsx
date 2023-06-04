@@ -3,8 +3,9 @@ import {
   StyledContainer,
   StyledWrapper,
   StyledFiltersWrapper,
-  StyledProjectsList,
-  StyledProjectsListItem,
+  StyledTilesList,
+  StyledTilesItem,
+  StyledPortfolioTile,
   StyledHeading,
   StyledProgressWrapper,
 } from "@/components/PortfolioSection/PortfolioSection.styled";
@@ -25,13 +26,43 @@ function PortfolioSection() {
           <Button variant="secondary">UI Design</Button>
           <Button variant="secondary">Infrastructure</Button>
         </StyledFiltersWrapper>
-        <StyledProjectsList>
-          <StyledProjectsListItem />
-          <StyledProjectsListItem />
-          <StyledProjectsListItem />
-          <StyledProjectsListItem />
-          <StyledProjectsListItem />
-        </StyledProjectsList>
+        <StyledTilesList>
+          <StyledTilesItem>
+            <StyledPortfolioTile
+              label="Personal Portfolio"
+              categories={["Frontend", "UI Design"]}
+              href=""
+            />
+          </StyledTilesItem>
+          <StyledTilesItem>
+            <StyledPortfolioTile
+              label="Personal Portfolio"
+              categories={["Frontend", "UI Design"]}
+              href=""
+            />
+          </StyledTilesItem>
+          <StyledTilesItem>
+            <StyledPortfolioTile
+              label="Personal Portfolio"
+              categories={["Frontend", "UI Design"]}
+              href=""
+            />
+          </StyledTilesItem>
+          <StyledTilesItem>
+            <StyledPortfolioTile
+              label="Personal Portfolio"
+              categories={["Frontend", "UI Design"]}
+              href=""
+            />
+          </StyledTilesItem>
+          <StyledTilesItem>
+            <StyledPortfolioTile
+              label="Personal Portfolio"
+              categories={["Frontend", "UI Design"]}
+              href=""
+            />
+          </StyledTilesItem>
+        </StyledTilesList>
         <StyledProgressWrapper>
           <p>Wyświetlono 5 z 18 projektów.</p>
           <Button>Zobacz więcej</Button>

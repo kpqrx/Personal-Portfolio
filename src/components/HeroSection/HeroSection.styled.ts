@@ -109,9 +109,9 @@ const StyledTypographyWrapper = styled.h1`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   background: linear-gradient(
     to right,
-    ${({ theme }) => theme.colors.pink},
-    ${({ theme }) => theme.colors.blue},
-    ${({ theme }) => theme.colors.cyan}
+    ${({ theme }) => theme.colors.brand.primary},
+    ${({ theme }) => theme.colors.brand.secondary},
+    ${({ theme }) => theme.colors.brand.tertiary}
   );
   -webkit-background-clip: text;
   -moz-background-clip: text;

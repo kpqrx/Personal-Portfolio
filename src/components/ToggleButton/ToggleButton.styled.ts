@@ -15,7 +15,7 @@ export const StyledContainer = styled.button`
 
   &:hover,
   &:focus-visible {
-    background-color: ${({ theme }) => theme.colors.bg.secondary};
+    background-color: ${({ theme }) => theme.colors.gray[800]};
   }
 `;
 

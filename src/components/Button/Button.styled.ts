@@ -52,10 +52,11 @@ export const StyledButton = styled.button<ButtonProps>`
         transform: scaleX(1.05) scaleY(1.1);
         filter: blur(16px);
         background: repeating-conic-gradient(
-          ${({ theme }) => theme.colors.pink} 25%,
-          ${({ theme }) => theme.colors.cyan} 45%,
-          ${({ theme }) => theme.colors.blue} 65%,
-          ${({ theme }) => theme.colors.pink} 80%
+          ${({ theme }) => theme.colors.brand.primary} 25%,
+          ${({ theme }) => theme.colors.brand.secondary} 40%,
+          ${({ theme }) => theme.colors.brand.tertiary} 55%,
+          ${({ theme }) => theme.colors.brand.primary} 70%,
+          ${({ theme }) => theme.colors.brand.secondary} 85%
         );
       }
     `}

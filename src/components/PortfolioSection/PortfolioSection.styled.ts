@@ -1,3 +1,4 @@
+import PortfolioTile from "@/components/PortfolioTile";
 import styled, { css } from "styled-components";
 
 export const StyledContainer = styled.div<{ $isDarkModeEnabled: boolean }>`
@@ -81,9 +82,9 @@ export const StyledHeading = styled.h2`
     margin: ${({ theme }) => theme.sizes("xs")} auto 0;
     background: linear-gradient(
       to right,
-      ${({ theme }) => theme.colors.pink},
-      ${({ theme }) => theme.colors.blue},
-      ${({ theme }) => theme.colors.cyan}
+      ${({ theme }) => theme.colors.brand.primary},
+      ${({ theme }) => theme.colors.brand.secondary},
+      ${({ theme }) => theme.colors.brand.tertiary}
     );
   }
 `;
@@ -95,7 +96,7 @@ export const StyledFiltersWrapper = styled.div`
   justify-content: center;
 `;
 
-export const StyledProjectsList = styled.ul`
+export const StyledTilesList = styled.ul`
   display: grid;
   grid-template-columns: 1fr;
   gap: ${({ theme }) => theme.sizes("xxs")};
@@ -110,11 +111,7 @@ export const StyledProjectsList = styled.ul`
   }
 `;
 
-export const StyledProjectsListItem = styled.li`
-  border-radius: ${({ theme }) => theme.sizes("xs")};
-  background-color: ${({ theme }) => theme.colors.bg.secondary};
-  height: 375px;
-
+export const StyledTilesItem = styled.li`
   @media ${({ theme }) => theme.breakpoints("xl")} {
     &:nth-child(4n-2) {
       grid-column: 2 / 5;
@@ -124,6 +121,10 @@ export const StyledProjectsListItem = styled.li`
       grid-column: 1/4;
     }
   }
+`;
+
+export const StyledPortfolioTile = styled(PortfolioTile)`
+  min-height: 375px;
 `;
 
 export const StyledProgressWrapper = styled.div`

@@ -69,6 +69,11 @@ export const lightTheme = {
       secondary: colors.gray[200],
       tertiary: colors.gray[300],
     },
+    brand: {
+      primary: colors.cyan,
+      secondary: colors.pink,
+      tertiary: colors.blue,
+    },
   },
 } as const;
 
@@ -86,6 +91,11 @@ export const darkTheme = {
       primary: colors.gray[800],
       secondary: colors.gray[600],
       tertiary: colors.gray[500],
+    },
+    brand: {
+      primary: colors.orange,
+      secondary: colors.green,
+      tertiary: colors.blue,
     },
   },
 } as const;
@@ -141,9 +151,9 @@ export const SVGDefinitions = () => (
   <svg className="hidden">
     <defs>
       <linearGradient id="gradient">
-        <stop offset="0%" stopColor={colors.pink} />
-        <stop offset="50%" stopColor={colors.blue} />
-        <stop offset="100%" stopColor={colors.cyan} />
+        <stop offset="0%" stopColor={colors.orange} />
+        <stop offset="50%" stopColor={colors.green} />
+        <stop offset="100%" stopColor={colors.blue} />
       </linearGradient>
     </defs>
   </svg>
